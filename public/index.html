@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image compressor and metadata remover: strip GPS before you post</title>
+<meta name="description" content="See the GPS location, camera and date inside your photos, strip all EXIF metadata, resize and compress for Kleinanzeigen, eBay, Vinted, Instagram or email. Runs in your browser, nothing is uploaded.">
+<meta name="theme-color" content="#0B0F0C">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/MartianMono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="app.css?v=1">
+</head>
+<body>
+
+<nav class="strip" aria-label="Site">
+  <div class="in">
+    <a class="home" id="lnkHome" href="/tools/image-compressor/" data-t="back">← hmsk.life</a>
+    <span class="sp"></span>
+    <button type="button" class="lang" id="langBtn" data-t="langSwitch">DE</button>
+    <a id="lnkImprint" href="/imprint/" data-t="imprint">Imprint</a>
+    <a id="lnkPrivacy" href="/privacy/" data-t="privacy">Privacy</a>
+  </div>
+</nav>
+
+<header class="head wrap">
+  <p class="cmd"><span class="ps">$</span> image-compressor --strip-metadata --resize</p>
+  <h1 data-t="h1">Remove your home location before you post a photo</h1>
+  <p class="sub" data-t="sub"></p>
+</header>
+
+<main class="wrap">
+  <section class="drop" id="drop" aria-labelledby="dropTitle">
+    <p class="drop__title" id="dropTitle"><span data-t="drop">Drop photos here</span> <span class="muted" data-t="dropOr">or</span></p>
+    <label class="btn btn--ghost" for="file"><svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/><path fill="currentColor" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/></svg> <span data-t="choose">Choose photos</span></label>
+    <input type="file" id="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.gif,.avif,.heic,.heif" hidden>
+    <p class="hint" data-t="dropHint"></p>
+    <p class="local"><span class="ps">●</span> <span data-t="local"></span></p>
+  </section>
+
+  <form class="settings" id="settings" autocomplete="off">
+    <fieldset>
+      <legend data-t="sSize">--size</legend>
+      <div class="chips" id="presets" role="radiogroup"></div>
+      <div class="custom" id="customBox" hidden>
+        <label for="customLong" data-t="customLong">Longest side (px)</label>
+        <input type="number" id="customLong" inputmode="numeric" min="100" max="10000" step="10">
+      </div>
+      <p class="hint" id="presetHint"></p>
+      <p class="hint" data-t="pPlatformNote"></p>
+    </fieldset>
+    <fieldset>
+      <legend data-t="sFormat">--format</legend>
+      <select id="format" aria-label="Format">
+        <option value="auto" data-t="f_auto"></option>
+        <option value="jpeg" data-t="f_jpeg"></option>
+        <option value="webp" data-t="f_webp"></option>
+        <option value="png" data-t="f_png"></option>
+      </select>
+      <label for="quality" class="qrow"><span data-t="sQuality">--quality</span> <output id="qOut">80</output></label>
+      <input type="range" id="quality" min="10" max="100" step="1">
+      <p class="hint" id="qHint"></p>
+    </fieldset>
+  </form>
+
+  <div class="bar" id="actions" hidden>
+    <button type="button" class="btn btn--amber" id="runBtn" data-t="run">Remove metadata &amp; compress</button>
+    <button type="button" class="btn btn--ghost" id="zipBtn" data-t="zip" disabled>Download all (ZIP)</button>
+    <button type="button" class="btn btn--ghost sm" id="clearBtn" data-t="clear">Clear list</button>
+    <p class="summary" id="summary" aria-live="polite"></p>
+  </div>
+
+  <ul class="files" id="files" role="list"></ul>
+
+  <p class="notify" id="notifyBox" hidden><a id="lnkNotify" href="/?topic=image-compressor#contact" data-t="notify"></a></p>
+
+  <section class="how" aria-labelledby="howTitle">
+    <h2 class="h2" id="howTitle" data-t="hHow">$ man image-compressor</h2>
+    <ul id="howList"></ul>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p><span data-t="madeBy">Open source (MIT) ·</span> <a id="lnkHome2" href="/tools/image-compressor/">hmsk.life</a></p>
+</footer>
+
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>

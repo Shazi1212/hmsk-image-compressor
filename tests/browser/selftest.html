@@ -1,0 +1,37 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>image-compressor self-test</title>
+<!-- Loads the real app in an iframe, feeds it the fixtures, runs the pipeline and posts the cleaned files as base64
+     to /result. Run with: python3 tools/selftest.py (headless Chrome + Pillow check). -->
+<pre id="out">pending</pre>
+<iframe id="app" src="/public/index.html?lang=en" width="1000" height="800"></iframe>
+<script type="module">
+const out = document.getElementById('out');
+const fr = document.getElementById('app');
+const b64 = u8 => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode(...u8.subarray(i, i + 0x8000)); return btoa(s); };
+try {
+  await new Promise(r => fr.addEventListener('load', r, { once: true }));
+  let IC;
+  for (let i = 0; i < 100 && !(IC = fr.contentWindow.__imageCompressor); i++) await new Promise(r => setTimeout(r, 50));
+  const names = ['gps.jpg', 'gps-rotated.jpg', 'gps.png', 'gps.webp', 'clean.jpg', 'big-rotated.jpg'];
+  const files = [];
+  for (const n of names) { const b = await (await fetch('/tests/fixtures/' + n)).blob(); files.push(new fr.contentWindow.File([b], n, { type: b.type })); }
+  const results = {};
+  for (const [preset, format] of [['original', 'auto'], ['kleinanzeigen', 'webp'], ['instagram', 'jpeg']]) {
+    IC.items.splice(0);
+    Object.assign(IC.settings, { preset, format, quality: 80 });
+    await IC.addFiles(files);
+    await IC.runAll();
+    const zip = (await import('/public/zip.js')).makeZip(IC.items.filter(i => i.out).map(i => ({ name: i.out.name, data: i.out.bytes })));
+    results[preset + '-' + format] = {
+      items: IC.items.map(it => ({ name: it.name, inGps: !!it.meta.gps, out: it.out && { name: it.out.name, w: it.out.w, h: it.out.h, clean: it.out.clean, b64: b64(it.out.bytes) }, error: it.error })),
+      zip: b64(zip),
+    };
+  }
+  out.textContent = 'done';
+  await fetch('/result', { method: 'POST', body: JSON.stringify(results) });
+} catch (e) {
+  out.textContent = 'error: ' + e;
+  await fetch('/result', { method: 'POST', body: JSON.stringify({ error: String(e && e.stack || e) }) });
+}
+</script>

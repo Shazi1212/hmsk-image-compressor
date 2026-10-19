@@ -1,0 +1,12 @@
+{
+  "name": "hmsk-image-compressor",
+  "version": "1.0.0",
+  "description": "See and remove GPS/EXIF metadata, resize and compress photos in the browser. Nothing is uploaded.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "python3 -m http.server 8080 --directory public"
+  }
+}
