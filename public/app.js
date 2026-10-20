@@ -66,7 +66,7 @@ function applyLang() {
   $('#lnkHome').href = $('#lnkHome2').href = LINK_BASE + (de ? '/de/tools/image-compressor/' : '/tools/image-compressor/');
   $('#lnkImprint').href = LINK_BASE + (de ? '/impressum/' : '/imprint/');
   $('#lnkPrivacy').href = LINK_BASE + (de ? '/datenschutz/' : '/privacy/');
-  $('#lnkNotify').href = LINK_BASE + (de ? '/de/?topic=image-compressor#contact' : '/?topic=image-compressor#contact');
+  $('#lnkNotify').href = LINK_BASE + (de ? '/de/newsletter/?topic=image-compressor' : '/subscribe/?topic=image-compressor');
   $('#howList').innerHTML = t.how.map(s => `<li>${esc(s)}</li>`).join('');
   $('#presets').innerHTML = Object.keys(PRESETS).map(k =>
     `<label class="chip"><input type="radio" name="preset" value="${k}"${k === settings.preset ? ' checked' : ''}><span>${esc(t['p_' + k])}</span></label>`).join('');
