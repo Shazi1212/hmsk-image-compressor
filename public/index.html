@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Image compressor and metadata remover: strip GPS before you post</title>
 <meta name="description" content="See the GPS location, camera and date inside your photos, strip all EXIF metadata, resize and compress for Kleinanzeigen, eBay, Vinted, Instagram or email. Runs in your browser, nothing is uploaded.">
-<meta name="theme-color" content="#0B0F0C">
+<meta name="theme-color" content="#EFF1F2">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/MartianMono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="app.css?v=1">
+<link rel="preload" href="fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="letterpress.css?v=2">
+<link rel="stylesheet" href="app.css?v=2">
 </head>
 <body>
 
@@ -24,7 +25,7 @@
 </nav>
 
 <header class="head wrap">
-  <p class="cmd"><span class="ps">$</span> image-compressor --strip-metadata --resize</p>
+  <p class="eyebrow">Image Compressor</p>
   <h1 data-t="h1">Remove your home location before you post a photo</h1>
   <p class="sub" data-t="sub"></p>
 </header>
@@ -40,7 +41,7 @@
 
   <form class="settings" id="settings" autocomplete="off">
     <fieldset>
-      <legend data-t="sSize">--size</legend>
+      <legend data-t="sSize">Size</legend>
       <div class="chips" id="presets" role="radiogroup"></div>
       <div class="custom" id="customBox" hidden>
         <label for="customLong" data-t="customLong">Longest side (px)</label>
@@ -50,14 +51,14 @@
       <p class="hint" data-t="pPlatformNote"></p>
     </fieldset>
     <fieldset>
-      <legend data-t="sFormat">--format</legend>
+      <legend data-t="sFormat">Format</legend>
       <select id="format" aria-label="Format">
         <option value="auto" data-t="f_auto"></option>
         <option value="jpeg" data-t="f_jpeg"></option>
         <option value="webp" data-t="f_webp"></option>
         <option value="png" data-t="f_png"></option>
       </select>
-      <label for="quality" class="qrow"><span data-t="sQuality">--quality</span> <output id="qOut">80</output></label>
+      <label for="quality" class="qrow"><span data-t="sQuality">Quality</span> <output id="qOut">80</output></label>
       <input type="range" id="quality" min="10" max="100" step="1">
       <p class="hint" id="qHint"></p>
     </fieldset>
@@ -75,7 +76,7 @@
   <p class="notify" id="notifyBox" hidden><a id="lnkNotify" href="/subscribe/?topic=image-compressor" data-t="notify"></a></p>
 
   <section class="how" aria-labelledby="howTitle">
-    <h2 class="h2" id="howTitle" data-t="hHow">$ man image-compressor</h2>
+    <h2 class="h2" id="howTitle" data-t="hHow">How it works</h2>
     <ul id="howList"></ul>
   </section>
 </main>
@@ -84,6 +85,6 @@
   <p><span data-t="madeBy">Open source (MIT) ·</span> <a id="lnkHome2" href="/tools/image-compressor/">hmsk.life</a></p>
 </footer>
 
-<script type="module" src="app.js?v=1"></script>
+<script type="module" src="app.js?v=2"></script>
 </body>
 </html>

@@ -266,7 +266,7 @@ function metaRows(m, cleaned) {
     const la = formatDeg(m.gps.lat, 'N', 'S'), lo = formatDeg(m.gps.lon, 'E', 'W');
     const extra = [m.gps.alt != null ? t.mAlt(m.gps.alt) : '', m.gps.err != null ? t.mErr(m.gps.err) : '', m.gps.dir != null ? t.mDir(m.gps.dir) : ''].filter(Boolean);
     const coords = `${m.gps.lat.toFixed(6)}, ${m.gps.lon.toFixed(6)}`;
-    rows.push(`<div class="r gps"><dt>! ${esc(t.mLocation)}</dt><dd><span class="coords">${esc(la.dec)}, ${esc(lo.dec)}</span>
+    rows.push(`<div class="r gps"><dt>${esc(t.mLocation)}</dt><dd><span class="coords">${esc(la.dec)}, ${esc(lo.dec)}</span>
       <span class="sub2">${esc(la.dms)} ${esc(lo.dms)}${extra.length ? ' · ' + esc(extra.join(' · ')) : ''}</span>
       <span class="sub2">${esc(t.gpsWarn)} <button type="button" class="link" data-copy="${esc(coords)}">${esc(t.copyCoords)}</button></span></dd></div>`);
   } else if (m.hasGpsTags) {

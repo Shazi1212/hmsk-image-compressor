@@ -47,7 +47,7 @@ The fixtures in `tests/fixtures/` are made by `tools/make_fixtures.py` (Pillow) 
 | `public/i18n.js` | English and German texts |
 | `public/app.js`, `index.html`, `app.css` | the UI |
 
-Fonts (Martian Mono, Geist; SIL Open Font License) are in `public/assets/fonts/`.
+Fonts (Newsreader, Public Sans; SIL Open Font License) are in `public/fonts/`; the shared hmsk.life look is in `public/letterpress.css`.
 
 ## License
 
